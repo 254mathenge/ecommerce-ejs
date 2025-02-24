@@ -87,7 +87,7 @@ a:hover {
 .admin-search input {
   padding: 8px 30px;
   border: 1px solid #ddd;
-  border-radius: 15px;
+  border-radius: 20px ;
 }
 
 .admin-search i {
@@ -139,7 +139,7 @@ a:hover {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
+  gap: 10px;
 }
 
 .top-top-bar {
@@ -164,13 +164,18 @@ a:hover {
   align-items: center;
   gap: 0.5rem;
   min-width: 200px;
+ 
+}
+.search-top input {
+  border-radius: 20px ;
+  width: 100%;
 }
 
 .admin-search input {
   width: 100%;
   padding: 8px 30px;
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 20px ;
 }
 
 .admin-search i {
@@ -180,7 +185,7 @@ a:hover {
 }
 
 .fa {
-  color: #666;
+  color: black;
   font-size: 18px;
   cursor: pointer;
 }
@@ -190,7 +195,8 @@ a:hover {
   flex-direction: column;
   gap: 0.5rem;
   min-width: 190px;
-  border-radius: 10px;
+  border-radius: 20px;
+  padding:8px;
 }
 
 .dropdown h4 {
@@ -201,12 +207,13 @@ a:hover {
 }
 
 .search-category {
-  width: 100%;
+  width: 90%;
   padding: 8px;
   border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  border-radius: 20px ;
   outline: none;
   transition: all 0.2s;
+
 }
 
 .search-category:focus {
@@ -225,9 +232,10 @@ a:hover {
 .add-btn {
   padding: 8px 16px;
   border-radius: 6px;
-  background-color: #3b82f6;
+  background-color: #f6763b;
   color: white;
   border: none;
+  border-radius: 20px ;
   cursor: pointer;
   transition: background-color 0.2s;
   white-space: nowrap;
@@ -235,7 +243,7 @@ a:hover {
 
 .filter-btn:hover,
 .add-btn:hover {
-  background-color: #2563eb;
+  background-color: #f6763b;
 }
 /* Container for the top bars */
 .product-grid {
@@ -261,93 +269,188 @@ a:hover {
 }
 
 /* Product styling */
-.product-grid {
+.container-home{
   width: 80vw;
-  height: 100vh;
-  margin-top: 20px;
-}
-.product {
-  display: flex;
-  flex-direction: column; /* Stack product details vertically */
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  margin: 0 auto;
 }
 
-.product-name,
-.product-price,
-.product-stock,
-.product-instock,
-.product-status {
-  margin: 5px 0; /* Add spacing between product details */
-}
-
-.product h3 {
-  margin: 0;
-  font-size: 16px;
-  color: #333;
-}
-
-.product p {
-  margin: 0;
-  font-size: 14px;
-  color: #666;
-}
-
-/* In-stock and out-of-stock styling */
-.in-stock {
-  color: green;
-}
-
-.out-of-stock {
-  color: red;
-}
-/* Product grid container */
 .product-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    5,
-    1fr
-  ); /* 5 columns for Name, Price, Stock, Instock, Active */
-  gap: 10px; /* Space between columns and rows */
-  padding: 10px;
- 
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-/* Product title row */
 .product-title {
-  display: contents; /* Makes the title row part of the grid */
+  display: grid;
+  grid-template-columns: 40px 2fr 1fr 1fr 1fr ;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  align-items: center;
+}
+
+.checkbox-header {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-header input[type="checkbox"],
+.product-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border: 1px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: white;
+  margin: 0;
+  transition: all 0.2s ease;
+}
+
+.checkbox-header input[type="checkbox"]:checked,
+.product-checkbox input[type="checkbox"]:checked {
+  background-color:#22c55e;
+  position: relative;
+}
+
+.checkbox-header input[type="checkbox"]:checked::after,
+.product-checkbox input[type="checkbox"]:checked::after {
+  content: "✓";
+  font-size: 12px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .product-title h3 {
-  text-align: center; /* Center-align the titles */
-  margin: 0;
-  padding: 10px;
-  background-color: #333;
-  color: #fff;
-  border-radius: 5px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
 }
 
-/* Product details */
 .product {
-  display: contents; /* Makes each product part of the grid */
+  display: grid;
+  grid-template-columns: 40px 2fr 1fr 1fr 1fr ;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s;
 }
 
-.product div {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  text-align: center; /* Center-align the product details */
+.product:hover {
+  background-color: #f9fafb;
 }
 
-/* In-stock and out-of-stock styling */
-.in-stock {
-  color: green;
+.product-checkbox {
+  display: flex;
+  align-items: center;
 }
 
-.out-of-stock {
-  color: red;
+.product-name {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.product-info h4 {
+  font-weight: 500;
+  color: #111827;
+}
+
+.product-info span {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.product-price {
+  font-weight: 500;
+}
+
+.product-stock {
+  position: relative;
+}
+
+.stock-bar {
+  width: 100px;
+  height: 6px;
+  background-color: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.stock-level {
+  height: 100%;
+  background-color: #22c55e;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.stock-number {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e5e7eb;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: #22c55e;
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(20px);
 }

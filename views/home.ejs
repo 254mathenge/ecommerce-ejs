@@ -104,39 +104,51 @@
                 </div>
 
             </div>
-            <div class="product-grid">
-                <div class="product-title">
-                    <h3>Name</h3>
-                    <h3>Price</h3>
-                    <h3>Stock </h3>
-                    <h3>Instock </h3>
-                    <h3>Active </h3>
-                </div>
-                <% products.forEach(product => { %>
-                    <div class="product" >
-                   
-                        <div class="product-name"> 
-                            <p><%= product.name %></p>
-                        </div>
-                        <div class="product-price">
-                            <p><%= product.price%></p>
-                        </div>
-                        <div class="product-stock">
-                            
-                            <p><%= product.stock%></p>
-                        </div>
-                        <div class="product-instock">
-                      <p class="<%= product.status === 1 ? 'in-stock' : 'out-of-stock' %>">
-                        <%= product.status === 1 ? 'In Stock' : 'Out of Stock' %>
-                      </p>
-                    </div>
-                    <div class="product-status">
-                        
-                        <p><%= product.active%></p>
-                    </div>
-                    </div>
+            <div class="container-home">
+              <div class="product-grid">
+                  <div class="product-title">
+                      <div class="checkbox-header">
+                          <input type="checkbox" id="select-all">
+                      </div>
+                      <h3>Product Info</h3>
+                      <h3>Price</h3>
+                      <h3>Stock</h3>
+                      <h3>Active</h3>
+                  </div>
+                  <% products.forEach(product => { %>
+                      <div class="product">
+                          <div class="product-checkbox">
+                              <input type="checkbox" class="product-select">
+                          </div>
+                          <div class="product-name">
+                              <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image">
+                              <div class="product-info">
+                                  <h4><%= product.name %></h4>
+                                  <span><%= product.sku %></span>
+                              </div>
+                          </div>
+                          <div class="product-price">
+                              $<%= product.price.toFixed(2) %>
+                          </div>
+                          <div class="product-stock">
+                              <div class="stock-bar">
+                                  <div class="stock-level" style="width:<%= Math.min((product.stock / 1000) * 100, 100) %>%"></div>
+                              </div>
+                              <div class="stock-number"><%= product.stock %></div>
+                          </div>
+                          <!-- <div class="product-instock">
+                              <%= product.inStock ? 'In Stock' : 'Out of Stock' %>
+                          </div> -->
+                          <div class="toggle-switch">
+                              <label>
+                                  <input type="checkbox" <%= product.inStock ? 'checked' : '' %>>
+                                  <span class="toggle-slider"></span>
+                              </label>
+                          </div>
+                      </div>
                   <% }) %>
-            </div>
+              </div>
+          </div>
         </div>
         </div>
       </div>

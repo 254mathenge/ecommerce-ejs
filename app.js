@@ -11,10 +11,33 @@ res.render("index",{AdminPage:"register page"}) //do not add the .ejs extension
 })
 
 app.get("/home",(req,res)=> {
-    const products = [
-        { id: 1, name: "Laptop", price: 1000, stock: 500, instock: "", active: "yes" },
-        { id: 2, name: "Smartphone", price: 800, stock: 300, instock: "", active: "yes" },
-        { id: 3, name: "Tablet", price: 600, stock: 200, instock: "", active: "no" },
+    const products= [
+        {
+        id: '1',
+    name: 'Sweatshirt With Hood',
+    sku: 'ID: 12764398',
+    price: 74.34,
+    stock: 683,
+    image: ''
+  },
+  {
+    id: '1',
+name: 'Sweatshirt With Hood',
+sku: 'ID: 12764398',
+price: 74.34,
+stock: 683,
+inStock: true,
+image: ''
+},,
+{
+    id: '1',
+name: 'Sweatshirt With Hood',
+sku: 'ID: 12764398',
+price: 74.34,
+stock: 683,
+inStock: true,
+image: ''
+},
       ];
     res.render("home",{AdminPage:"crm", products }) //do not add the .ejs extension
     })
