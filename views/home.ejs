@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= AdminPage%></title>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="admin-header">
+      <form class="admin-search">
+        <div class="admin-search">
+          <i class="fa fa-search"></i>
+          <input type="text" id="search" placeholder="Search" />
+        </div>
+      </form>
+      <div>
+        <i class="fa fa-envelope-o"></i>
+      </div>
+      <div>
+        <i class="fa fa-bell-o"></i>
+      </div>
+      <div class="user-panel">
+        <div class="user-image">
+          <img src="/images/person.jpg" alt="user" />
+        </div>
+        <div class="user-panel-text">
+          <h3>Jimmy Sullivan</h3>
+          <p>Alabama Store</p>
+        </div>
+      </div>
+    </div>
+    <div class="container-admin">
+      <div class="top-bar">
+        <div class="top-top-bar">
+            <div class="search-top">
+              <i class="fa fa-search"></i>
+              <input type="text" id="search" placeholder="Search" />
+              </div>
+          <div class="dropdown">
+            <select class="search-category">
+              <option value="all">All</option>
+              <option value="books">Books</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+            </select>
+          </div>
+          <div class="dropdown">
+            <select class="search-category">
+              <option value="all">All</option>
+              <option value="books">Books</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+            </select>
+          </div>
+          <div class="filter">
+            <i class="fa fa-filter"></i>
+            <button class="filter-btn">Filter</button>
+          </div>
+          <div class="add-new-product">
+            <i class="fa fa-plus"></i>
+            <button class="add-btn">Add new product</button>
+          </div>
+        </div>
+                <div class="top-bottom-bar">
+                   <div class="dropdown">
+                    <h4>category</h4>
+                    <select class="search-category">
+                        <option value="all">All Collection</option>
+                        <option value="books">Books</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="fashion">Fashion</option>
+                      </select>
+                    </div>
+                    <div class="dropdown">
+                        <h4>Price</h4>
+                        <select class="search-category">
+                            <option value="all">$50-$100</option>
+                            <option value="books">Books</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="fashion">Fashion</option>
+                          </select>
+                        </div>
+                        <div class="dropdown">
+                            <h4>Status</h4>
+                            <select class="search-category">
+                                <option value="all">All</option>
+                                <option value="books">Books</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="fashion">Fashion</option>
+                              </select>
+                            </div>
+                            <div class="dropdown">
+                                <h4>store</h4>
+                                <select class="search-category">
+                                    <option value="all">All Collection</option>
+                                    <option value="books">Books</option>
+                                    <option value="electronics">Electronics</option>
+                                    <option value="fashion">Fashion</option>
+                                  </select>
+                                </div>
+                </div>
+                </div>
+
+            </div>
+            <div class="product-grid">
+                <div class="product-title">
+                    <h3>Name</h3>
+                    <h3>Price</h3>
+                    <h3>Stock </h3>
+                    <h3>Instock </h3>
+                    <h3>Active </h3>
+                </div>
+                <% products.forEach(product => { %>
+                    <div class="product" >
+                   
+                        <div class="product-name"> 
+                            <p><%= product.name %></p>
+                        </div>
+                        <div class="product-price">
+                            <p><%= product.price%></p>
+                        </div>
+                        <div class="product-stock">
+                            
+                            <p><%= product.stock%></p>
+                        </div>
+                        <div class="product-instock">
+                      <p class="<%= product.status === 1 ? 'in-stock' : 'out-of-stock' %>">
+                        <%= product.status === 1 ? 'In Stock' : 'Out of Stock' %>
+                      </p>
+                    </div>
+                    <div class="product-status">
+                        
+                        <p><%= product.active%></p>
+                    </div>
+                    </div>
+                  <% }) %>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
