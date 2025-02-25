@@ -169,6 +169,7 @@ a:hover {
 .search-top input {
   border-radius: 20px ;
   width: 100%;
+  padding: 10px 20px;
 }
 
 .admin-search input {
@@ -186,8 +187,10 @@ a:hover {
 
 .fa {
   color: black;
-  font-size: 18px;
+  font-size: 10px;
   cursor: pointer;
+  position: absolute;
+  left: 10%;
 }
 
 .dropdown {
@@ -198,6 +201,22 @@ a:hover {
   border-radius: 20px;
   padding:8px;
 }
+.fa-not {
+  color: black;
+  font-size: 12px;
+  padding: 5px;
+  cursor: pointer;
+position: relative;
+}
+.fa-not .fa{
+  color: black;
+  font-size: 15px;
+  padding: 5px;
+  position: absolute;
+  top: 10%;
+  color: black;
+}
+
 
 .dropdown h4 {
   margin: 0;
@@ -226,11 +245,12 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  position: relative;
 }
 
 .filter-btn,
 .add-btn {
-  padding: 8px 16px;
+  padding: 8px 25px;
   border-radius: 6px;
   background-color: #f6763b;
   color: white;
