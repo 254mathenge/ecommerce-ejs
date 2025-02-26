@@ -146,6 +146,14 @@
                                   <span class="toggle-slider"></span>
                               </label>
                           </div>
+                          <a href="/products/update/<%= product.id %>" title="Edit">
+                            <i class="fas fa-edit" style="color: #28a745; font-size: 18px; margin-right: 10px;"></i>
+                        </a>
+    
+                        <!-- Delete Icon -->
+                        <a href="/products/delete/<%= product.id %>" title="Delete" onclick="return confirm('Are you sure you want to delete this product?')">
+                            <i class="fas fa-trash" style="color: #dc3545; font-size: 18px;"></i>
+                        </a>
                       </div>
                   <% }) %>
               </div>

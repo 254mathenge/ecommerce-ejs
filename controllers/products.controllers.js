@@ -64,3 +64,33 @@ export const deleteProduct =async(req, res) => {
         res.status(500).json({success:false ,message:error.message})
   }
 }
+
+export const updateProduct = async(req, res) => {
+    const id = req.params.id;
+    const { name, sku, price, stock, image } = req.body;
+    console.log({ name, sku, price, stock, image },"updating");
+    try {
+        console.log("Headers:", req.headers);
+        console.log("Request Body:", req.body);
+        const productId = parseInt(req.params.id, 10);
+
+        
+
+        const updatedData = {};
+        if (name) updatedData.name = name;
+        if (sku) updatedData.sku = sku;
+        if (price) updatedData.price = price;
+        if (stock) updatedData.stock = stock;
+        if (image) updatedData.image = image;
+
+        const products = await prisma.product.update({
+            where: { id: productId },
+            data: updatedData,
+        });
+
+        res.redirect("/products"); // Redirect after update
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
