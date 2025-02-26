@@ -6,19 +6,22 @@ const prisma = new PrismaClient();
 
 
 export const createUser = async (req, res) => {
-    console.log(req.body)
+    const {email,password } = req.body;
+    console.log("registering",{email,password } )
+    
     try {
-        const {email, password } = req.body;
-       const hashedPassword=bcrypt.hashSync(password ,10)
-        const newUser = await prisma.user.create({
+
+        const hashedPassword=  bcrypt.hashSync(password ,10)
+        
+       const newUser = await prisma.user.create({
             data: {
                 email: email,
                 password: hashedPassword,
 
             }
         })
-        res.status(201).json(newUser)
-       
+        console.log("User registered:", newUser);
+        res.redirect("/login");  
     } catch (error) {
         res.status(500).json({ success: false, message: error.message })
     }
@@ -33,6 +36,7 @@ export const getAllUsers =async(req, res) => {
   }
 }
 export const loginUser = async (req, res) => {
+    console.log("Login request received:", req.body);
     const { email, password } = req.body;
     try {
         const user = await prisma.user.findFirst({
@@ -47,16 +51,14 @@ export const loginUser = async (req, res) => {
                 const token = jwt.sign({userid:user.userid}, process.env.SECRET_KEY, { expiresIn: "96h" })
 
                 res.cookie("access_token", token)
-
-                res.status(200).json({ success: true, data: { ...user,token} })
-            } else {
+         
+              } 
+                else {
                 return res.status(400).json({ success: false, message: "Invalid email or password" })
     
             }
         }
-        else {
-            return res.status(400).json({ success: false, message: "Invalid email or password" })
-        }
+        res.redirect("/home"); 
     }
     catch (error) {
         res.status(401).json({ success: false, message: error.message })
