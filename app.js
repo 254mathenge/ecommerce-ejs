@@ -1,4 +1,5 @@
 import usersRoutes from "./routes/users.routes.js";
+import productsRoutes from "./routes/products.routes.js"
 import express from "express";
 import ejs from "ejs";
 import path from "path";
@@ -50,6 +51,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", usersRoutes);
+app.use("/products",productsRoutes)
 app.get("/home", (req, res) => {
   const products = [
     {
@@ -86,6 +88,10 @@ app.get("/home", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login", { AdminPage: "Login page" }); //do not add the .ejs extension
 });
+
+app.get("/product", (req, res) => {
+    res.render("product", { AdminPage: "New Products" }); //do not add the .ejs extension
+  })
 
 app.listen(3000, () => {
   console.log("server is running on port 3000");

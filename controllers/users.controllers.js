@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 
 export const createUser = async (req, res) => {
-    const {email,password } = req.body;
+    const {email,password ,isAdmin} = req.body;
     console.log("registering",{email,password } )
     
     try {
@@ -17,7 +17,7 @@ export const createUser = async (req, res) => {
             data: {
                 email: email,
                 password: hashedPassword,
-
+                isAdmin: false 
             }
         })
         console.log("User registered:", newUser);
@@ -48,7 +48,7 @@ export const loginUser = async (req, res) => {
             const passwordMatch = bcrypt.compareSync(password, user.password)
             if (passwordMatch === true) {
                
-                const token = jwt.sign({userid:user.userid}, process.env.SECRET_KEY, { expiresIn: "96h" })
+                const token = jwt.sign({userid:user.userid,isAdmin: user.isAdmin }, process.env.SECRET_KEY, { expiresIn: "96h" })
 
                 res.cookie("access_token", token)
          
@@ -58,9 +58,41 @@ export const loginUser = async (req, res) => {
     
             }
         }
-        res.redirect("/home"); 
+        if (user.isAdmin) {
+            res.redirect("/home");  
+        } else {
+            res.redirect("/");  
+        }
     }
     catch (error) {
         res.status(401).json({ success: false, message: error.message })
     }
 }
+
+// export const inviteAdmin = async (req, res) => {
+//     try {
+//         const { email } = req.body;
+
+//         // Check if the requesting user is an admin
+//         if (!req.user || !req.user.isAdmin) {
+//             return res.status(403).json({ success: false, message: "Access denied. Admins only." });
+//         }
+
+//         // Find the user to promote
+//         const user = await prisma.user.findUnique({ where: { email } });
+
+//         if (!user) {
+//             return res.status(404).json({ success: false, message: "User not found." });
+//         }
+
+//         // Update user to admin
+//         const updatedUser = await prisma.user.update({
+//             where: { email },
+//             data: { isAdmin: true },
+//         });
+
+//         res.status(200).json({ success: true, message: `${email} is now an admin`, updatedUser });
+//     } catch (error) {
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// };
