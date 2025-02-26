@@ -47,3 +47,20 @@ export const getAllProducts =async(req, res) => {
         res.status(500).json({success:false ,message:error.message})
   }
 }
+export const deleteProduct =async(req, res) => {
+    const id = req.params.id;
+    try {
+        const productId = parseInt(req.params.id, 10);
+        const products= await prisma.product.delete({
+            where:{
+                id:productId
+            }
+
+        });
+        res.redirect("/products"); 
+
+    } 
+    catch (error) {
+        res.status(500).json({success:false ,message:error.message})
+  }
+}
