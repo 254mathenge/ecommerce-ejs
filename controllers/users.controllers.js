@@ -10,6 +10,12 @@ export const createUser = async (req, res) => {
     console.log("registering",{email,password } )
     
     try {
+        const existingUser = await prisma.user.findUnique({ where: { email:email } });
+
+        if (existingUser) {
+            console.log("user currently exists" );
+            return res.render("index", { AdminPage: "register page",error: "Email already exists. Please use a different one." });
+        }
 
         const hashedPassword=  bcrypt.hashSync(password ,10)
         
@@ -23,7 +29,10 @@ export const createUser = async (req, res) => {
         console.log("User registered:", newUser);
         res.redirect("/login");  
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message })
+        res.render("index", { 
+            AdminPage: "register page",
+            error: "An error occurred. Please try again later." 
+        });
     }
 }
 export const getAllUsers =async(req, res) => {
@@ -68,31 +77,18 @@ export const loginUser = async (req, res) => {
         res.status(401).json({ success: false, message: error.message })
     }
 }
+export const deleteUser = async (req, res) => {
+    const id = req.params.id
+    try {
+        const deleteUser = await prisma.user.delete({
+            where: {
+                id:UserId
+            },
 
-// export const inviteAdmin = async (req, res) => {
-//     try {
-//         const { email } = req.body;
-
-//         // Check if the requesting user is an admin
-//         if (!req.user || !req.user.isAdmin) {
-//             return res.status(403).json({ success: false, message: "Access denied. Admins only." });
-//         }
-
-//         // Find the user to promote
-//         const user = await prisma.user.findUnique({ where: { email } });
-
-//         if (!user) {
-//             return res.status(404).json({ success: false, message: "User not found." });
-//         }
-
-//         // Update user to admin
-//         const updatedUser = await prisma.user.update({
-//             where: { email },
-//             data: { isAdmin: true },
-//         });
-
-//         res.status(200).json({ success: true, message: `${email} is now an admin`, updatedUser });
-//     } catch (error) {
-//         res.status(500).json({ success: false, message: error.message });
-//     }
-// };
+        })
+        res.status(200).json(deleteUser)
+    } 
+    catch (error) {
+        res.status(500).json({success:false ,message:error.message})
+  }
+}

@@ -303,7 +303,7 @@ position: relative;
 
 .product-title {
   display: grid;
-  grid-template-columns: 40px 2fr 1fr 1fr 1fr ;
+  grid-template-columns: 40px 2fr 1fr 1fr 1fr 1fr;
   gap: 1rem;
   padding: 1rem 1.5rem;
   background-color: #f9fafb;
@@ -356,7 +356,7 @@ position: relative;
 
 .product {
   display: grid;
-  grid-template-columns: 40px 2fr 1fr 1fr 1fr ;
+  grid-template-columns: 40px 2fr 1fr 1fr 1fr 1fr;
   gap: 1rem;
   padding: 1rem 1.5rem;
   align-items: center;
@@ -372,7 +372,14 @@ position: relative;
   display: flex;
   align-items: center;
 }
+.product-actions{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 
+}
 .product-name {
   display: flex;
   align-items: center;

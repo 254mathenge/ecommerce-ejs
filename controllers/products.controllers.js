@@ -57,7 +57,7 @@ export const deleteProduct =async(req, res) => {
             }
 
         });
-        res.redirect("/products"); 
+        res.redirect("/product"); 
 
     } 
     catch (error) {
@@ -88,7 +88,7 @@ export const updateProduct = async(req, res) => {
             data: updatedData,
         });
 
-        res.redirect("/products"); // Redirect after update
+        res.redirect("/product"); // Redirect after update
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: error.message });

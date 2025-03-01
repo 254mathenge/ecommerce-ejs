@@ -59,7 +59,7 @@ app.use(express.urlencoded({ extended: true }));
 //css static
 app.use(express.static("public"));
 app.get("/", (req, res) => {
-  res.render("index", { AdminPage: "register page" }); //do not add the .ejs extension
+  res.render("index", { AdminPage: "register page", error: null} ); //do not add the .ejs extension
 });
 
 app.use("/users", usersRoutes);
