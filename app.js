@@ -1,6 +1,7 @@
 import usersRoutes from "./routes/users.routes.js";
 import productsRoutes from "./routes/products.routes.js"
 import { isAuthenticated ,isAdmin} from "./middlewares/auth.middlewares.js";
+import session from "express-session";
 
 import cookieParser from "cookie-parser";
 import express from "express";
@@ -55,7 +56,14 @@ app.use(
   );
   
 
-
+  app.use(
+    session({
+      secret: "your_secret_key", // Replace with a strong secret
+      resave: false,
+      saveUninitialized: true,
+      cookie: { secure: false }, // Set to `true` if using HTTPS
+    })
+  );
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -136,7 +144,24 @@ app.get("/product", (req, res) => {
     res.redirect("/login"); // Redirects user to login page
 });
 
+app.get("/cart", (req, res) => {
+  if (!req.session.cart) {
+    req.session.cart = []; // Initialize cart if undefined
+  }
+  res.render("cart", { AdminPage: "register page", cart: req.session.cart });
+});
 
+app.post("/add-to-cart", (req, res) => {
+  const productId = parseInt(req.body.productId);
+  const product = product.find((p) => p.id === productId);
+
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+
+  req.session.cart.push(product);
+  res.redirect("/cart");
+});
 
 app.listen(3000, () => {
   console.log("server is running on port 3000");

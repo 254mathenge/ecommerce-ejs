@@ -33,6 +33,9 @@
 <a href="/logout" >
   <button style="font-size: 18px; padding:5px; ">Logout</button>
 </a>
+
+<!-- cart button -->
+<a href="/cart">View Cart</a>
         </div>
         <div class="content">
           <div class="sidebar">
@@ -131,6 +134,7 @@
                       <span class="original-price">$<%= product.originalPrice.toFixed(2) %></span>
                     <% } %>
                   </div>
+                  <button type="submit" style="font-size: 18px; padding:5px; ">Add to Cart</button>
                 </div>
               </div>
             <% }) %>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= AdminPage%></title>
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <% if (cart.length > 0) { %>
+        <ul>
+            <% cart.forEach(item => { %>
+                <li>
+                    <%= item.name %> - $<%= item.price %>
+                    <form action="/remove-from-cart" method="POST">
+                        <input type="hidden" name="productId" value="<%= item.id %>">
+                        <button type="submit">Remove</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>Your cart is empty.</p>
+    <% } %>
+
+    <a href="/">Continue Shopping</a>
+</body>
+</html>
