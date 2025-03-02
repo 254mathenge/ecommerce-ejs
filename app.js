@@ -1,6 +1,6 @@
 import usersRoutes from "./routes/users.routes.js";
 import productsRoutes from "./routes/products.routes.js"
-import { isAuthenticated } from "./middlewares/auth.middlewares.js";
+import { isAuthenticated ,isAdmin} from "./middlewares/auth.middlewares.js";
 
 import cookieParser from "cookie-parser";
 import express from "express";
@@ -104,7 +104,7 @@ app.use("/products",productsRoutes)
 //   res.render("home", { AdminPage: "crm", products }); //do not add the .ejs extension
 // });
 
-app.get("/home",isAuthenticated, async (req, res) => {
+app.get("/home",isAuthenticated,isAdmin, async (req, res) => {
     try {
       const products = await prisma.product.findMany();
       res.render("home", { AdminPage: "crm", products });
