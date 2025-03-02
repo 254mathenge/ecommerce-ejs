@@ -9,6 +9,11 @@ export const createUser = async (req, res) => {
     const {email,password ,isAdmin} = req.body;
     console.log("registering",{email,password } )
     
+    // if (password.length !== 5) {
+    //     return res.status(400).send("Password must be exactly 5 characters long");
+    //   }
+    
+
     try {
         const existingUser = await prisma.user.findUnique({ where: { email:email } });
 

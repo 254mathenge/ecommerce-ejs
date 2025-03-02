@@ -151,16 +151,31 @@ app.get("/cart", (req, res) => {
   res.render("cart", { AdminPage: "register page", cart: req.session.cart });
 });
 
-app.post("/add-to-cart", (req, res) => {
+app.post("/add-to-cart", async (req, res) => {
   const productId = parseInt(req.body.productId);
-  const product = product.find((p) => p.id === productId);
 
-  if (!req.session.cart) {
-    req.session.cart = [];
+  try {
+    // ✅ Fetch product from database
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+    });
+
+    if (!product) {
+      return res.status(404).send("Product not found");
+    }
+
+    // ✅ Ensure cart session exists
+    if (!req.session.cart) {
+      req.session.cart = [];
+    }
+
+    // ✅ Add product to session cart
+    req.session.cart.push(product);
+    res.redirect("/cart");
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    res.status(500).send("Internal Server Error");
   }
-
-  req.session.cart.push(product);
-  res.redirect("/cart");
 });
 
 app.listen(3000, () => {

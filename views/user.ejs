@@ -134,12 +134,15 @@
                       <span class="original-price">$<%= product.originalPrice.toFixed(2) %></span>
                     <% } %>
                   </div>
-                  <button type="submit" style="font-size: 18px; padding:5px; ">Add to Cart</button>
+                  <form action="/add-to-cart" method="POST">
+                    <input type="hidden" name="productId" value="<%= product.id %>">
+                    <button type="submit" style="font-size: 18px; padding:5px; ">Add to Cart</button>
+                </form>
                 </div>
               </div>
             <% }) %>
           </div>
-          
+         
         <!-- </div> -->
       </div>
 </body>
