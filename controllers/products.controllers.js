@@ -6,26 +6,27 @@ const prisma = new PrismaClient();
 
 export const createProduct = async (req, res) => {
     try {
-        // Multer Middleware to Handle Image Upload
+        
         upload.single("image")(req, res, async (err) => {
             if (err) {
                 return res.status(500).json({ success: false, message: "Multer error: " + err.message });
             }
 
-            const { name, sku, price, stock } = req.body;
-            console.log({ name, sku, price, stock, image: req.file?.path });
+            const { name,category, sku, price, stock } = req.body;
+            console.log({ name, sku, price, stock,category, image: req.file?.path});
 
-            // Upload image to Cloudinary
+            // image: req.file?.path
             const cloudinaryResult = await cloudinary.uploader.upload(req.file.path);
 
-            // Save product details to database
+           
             const product = await prisma.product.create({
                 data: {
                     name: name,
+                    category:category,
                     sku: sku,
                     price: parseFloat(price),
                     stock: parseInt(stock),
-                    image: cloudinaryResult.secure_url, // Use Cloudinary image URL
+                    image: cloudinaryResult.secure_url, 
                 },
             });
 
@@ -67,8 +68,8 @@ export const deleteProduct =async(req, res) => {
 
 export const updateProduct = async(req, res) => {
     const id = req.params.id;
-    const { name, sku, price, stock, image } = req.body;
-    console.log({ name, sku, price, stock, image },"updating");
+    const { name, sku, price, stock ,category, image } = req.body;
+    console.log({ name, sku, price, stock,category, image },"updating");
     try {
         console.log("Headers:", req.headers);
         console.log("Request Body:", req.body);
@@ -81,6 +82,7 @@ export const updateProduct = async(req, res) => {
         if (sku) updatedData.sku = sku;
         if (price) updatedData.price = price;
         if (stock) updatedData.stock = stock;
+        if (category) updatedData.category = category;
         if (image) updatedData.image = image;
 
         const products = await prisma.product.update({
@@ -88,9 +90,53 @@ export const updateProduct = async(req, res) => {
             data: updatedData,
         });
 
-        res.redirect("/product"); // Redirect after update
+        res.redirect("/product"); 
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+export const getProductsByCategory = async (req, res) => {
+    const { category } = req.params;
+
+    try {
+        const products = await prisma.product.findMany({
+            where: { category }
+        });
+        console.log(products);
+        // res.json(products);
+        res.render("home", { AdminPage: "crm", products });
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching products" });
+    }
+};
+
+export const getProductsByPrice = async (req, res) => {
+    console.log("Fetching products by price range...");
+    const { price } = req.params;
+
+    let priceFilter = {};
+    
+    if (price !== "allPrices") {
+        if (price.includes("+")) {
+            const minPrice = parseInt(price.replace("+", ""), 10);
+            priceFilter = { price: { gte: minPrice } };
+        } else {
+            const [minPrice, maxPrice] = price.split("-").map(Number);
+            priceFilter = { price: { gte: minPrice, lte: maxPrice } }; 
+        }
+    }
+
+    try {
+        const products = await prisma.product.findMany({
+            where: priceFilter
+        });
+        console.log(products);
+        // res.json(products);
+
+        res.render("home", { AdminPage: "crm", products });
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching products" });
     }
 };

@@ -6,7 +6,6 @@ router.get("/",getAllUsers)
 router.post("/register" ,createUser) 
 router.post("/login",loginUser ,authorizeAdmin)
 router.delete("/delete",deleteUser)
-// router.patch("/inviteAdmin",inviteAdmin,authorizeAdmin)
 router.get("/admin", authorizeAdmin, (req, res) => {
     res.render("home");
 });

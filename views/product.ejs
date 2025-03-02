@@ -1,40 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= AdminPage %></title>
     <link rel="stylesheet" href="/css/style.css" />
-</head>
-<body>
-    <form class="admin-product-form" action="/products/add" method="POST" enctype="multipart/form-data">
-        <div class="form-field">
-            <label>Product Name</label>
-            <input type="text" name="name" required>
-        </div>
+  </head>
+  <body>
+    <form
+      class="admin-product-form"
+      action="/products/add"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="form-field">
+        <label>Product Name</label>
+        <input type="text" name="name" required />
+      </div>
+      <div class="form-field">
+        <label>Category</label >
+        <select name="category" required>
+            <option value="men">All Categories</option>
+            <option value="men">Men</option>
+            <option value="women">Women</option>
+            <option value="kids">Kids</option>
+        </select>
+      </div>
 
-        <div class="form-field">
-            <label>SKU</label>
-            <input type="text" name="sku" required>
-        </div>
+      <div class="form-field">
+        <label>SKU</label>
+        <input type="text" name="sku" required />
+      </div>
 
-        <div class="form-field">
-            <label>Price</label>
-            <input type="number" step="0.01" name="price" required>
-        </div>
+      <div class="form-field">
+        <label>Price</label>
+        <input type="number" step="0.01" name="price" required />
+      </div>
 
-        <div class="form-field">
-            <label>Stock Quantity</label>
-            <input type="number" name="stock" required>
-        </div>
+      <div class="form-field">
+        <label>Stock Quantity</label>
+        <input type="number" name="stock" required />
+      </div>
 
-        <div class="form-field">
-            <label for="image">Product Image</label>
-            <input type="file" id="image" name="image" accept="image/*" required onchange="previewImage(event)">
-            <!-- <img src="" id="imagePreview" class="image-placeholder" alt="Product Image"/> -->
-        </div>
+      <div class="form-field">
+        <label for="image">Product Image</label>
+        <input
+          type="file"
+          id="image"
+          name="image"
+          accept="image/*"
+          required
+          onchange="previewImage(event)"
+        />
+        <!-- <img src="" id="imagePreview" class="image-placeholder" alt="Product Image"/> -->
+      </div>
 
-        <button class="submit-button" type="submit">Add Product</button>
+      <button class="submit-button" type="submit">Add Product</button>
     </form>
-</body>
+  </body>
 </html>

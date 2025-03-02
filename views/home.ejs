@@ -17,10 +17,11 @@
         </div>
       </form>
       <div class="fa-not">
-        <i class="fa fa-envelope-o"></i>
+        <i class="fas fa-envelope ; font-size: 18px;"></i>
       </div>
-      <div class="fa-not">
-        <i class="fa fa-bell-o"></i>
+      <div class="fa-notif">
+        <i class="fas fa-bell  ;font-size: 18px;"></i>
+        
       </div>
       <div class="user-panel">
         <div class="user-image">
@@ -67,20 +68,22 @@
                 <div class="top-bottom-bar">
                    <div class="dropdown">
                     <h4>category</h4>
-                    <select class="search-category">
-                        <option value="all">All Collection</option>
-                        <option value="books">Books</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="fashion">Fashion</option>
+                    <select class="search-category" id="categoryFilter">
+                         <option value="allCategories">All Categories</option>
+              <option value="women">women</option>
+              <option value="men">men</option>
+              <option value="kids">kids</option>
                       </select>
                     </div>
                     <div class="dropdown">
                         <h4>Price</h4>
-                        <select class="search-category">
-                            <option value="all">$50-$100</option>
-                            <option value="books">Books</option>
-                            <option value="electronics">Electronics</option>
-                            <option value="fashion">Fashion</option>
+                        <select class="search-category" id="priceFilter">
+                          <option value="allPrices">All Prices</option>
+                          <option value="0-50">$0 - $50</option>
+                          <option value="51-100">$51 - $100</option>
+                          <option value="101-150">$101 - $150</option>
+                          <option value="151-200">$151 - $200</option>
+                          <option value="201+">$201 and above</option>
                           </select>
                         </div>
                         <div class="dropdown">
@@ -177,5 +180,24 @@
         </div>
       </div>
     </div>
+    <script>
+      document.getElementById("priceFilter").addEventListener("change", function() {
+          const selectedPrice = this.value;
+          if (selectedPrice === "allPrices") {
+              window.location.href = "/home";
+          } else {
+              window.location.href = `/products/price/${selectedPrice}`;
+          }
+      });
+
+      document.getElementById("categoryFilter").addEventListener("change", function() {
+        const selectedCategory = this.value;
+        if (selectedCategory === "allCategories") {
+            window.location.href = "/home";
+        } else {
+            window.location.href = `/products/category/${selectedCategory}`;
+        }
+    });
+    </script>
   </body>
 </html>
