@@ -131,6 +131,13 @@ app.get("/product", (req, res) => {
     res.render("product", { AdminPage: "New Products" }); 
   })
 
+  app.get("/logout", (req, res) => {
+    res.clearCookie("access_token"); // Clears the authentication token
+    res.redirect("/login"); // Redirects user to login page
+});
+
+
+
 app.listen(3000, () => {
   console.log("server is running on port 3000");
 });
