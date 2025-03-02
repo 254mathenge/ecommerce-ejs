@@ -44,39 +44,34 @@ export const getAllUsers =async(req, res) => {
         res.status(500).json({success:false ,message:error.message})
   }
 }
+
+
 export const loginUser = async (req, res) => {
     console.log("Login request received:", req.body);
     const { email, password } = req.body;
     try {
-        const user = await prisma.user.findFirst({
-            where: {
-                email: email
-            }
-        })
-        if (user) {
-            const passwordMatch = bcrypt.compareSync(password, user.password)
-            if (passwordMatch === true) {
-               
-                const token = jwt.sign({userid:user.userid,isAdmin: user.isAdmin }, process.env.SECRET_KEY, { expiresIn: "96h" })
+        const user = await prisma.user.findFirst({ where: { email } });
+        if (!user) {
+            return res.status(400).json({ success: false, message: "Invalid email or password" });
+        }
 
-                res.cookie("access_token", token)
-         
-              } 
-                else {
-                return res.status(400).json({ success: false, message: "Invalid email or password" })
-    
-            }
+        const passwordMatch = bcrypt.compareSync(password, user.password);
+        if (!passwordMatch) {
+            return res.status(400).json({ success: false, message: "Invalid email or password" });
         }
-        if (user.isAdmin) {
-            res.redirect("/home");  
-        } else {
-            res.redirect("/user");  
-        }
+
+        const token = jwt.sign({ userid: user.userid, isAdmin: user.isAdmin }, process.env.SECRET_KEY, { expiresIn: "96h" });
+        res.cookie("access_token", token, { httpOnly: true });
+
+        return res.redirect(user.isAdmin ? "/home" : "/user");
+    } catch (error) {
+        return res.status(500).json({ success: false, message: error.message });
     }
-    catch (error) {
-        res.status(401).json({ success: false, message: error.message })
-    }
-}
+};
+
+
+
+
 export const deleteUser = async (req, res) => {
     const id = req.params.id
     try {

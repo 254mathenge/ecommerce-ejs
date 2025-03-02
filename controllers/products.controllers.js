@@ -44,6 +44,11 @@ export const getAllProducts =async(req, res) => {
         const products= await prisma.product.findMany();
       
         console.log(products);
+
+        if (!Array.isArray(products)) {
+            console.error("Products is not an array:", products);
+            return res.render("home", { AdminPage: "crm", products: [] }); // Pass empty array to avoid errors
+          }
         // res.json(products)
     
     res.render("home", { AdminPage: "crm", products });

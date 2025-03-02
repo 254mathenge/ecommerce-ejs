@@ -1,5 +1,8 @@
 import usersRoutes from "./routes/users.routes.js";
 import productsRoutes from "./routes/products.routes.js"
+import { isAuthenticated } from "./middlewares/auth.middlewares.js";
+
+import cookieParser from "cookie-parser";
 import express from "express";
 import ejs from "ejs";
 import path from "path";
@@ -22,8 +25,9 @@ const port = 3000;
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:3000",
     methods: ["POST", "GET", "DELETE", "PATCH"],
+    credentials: true, // Allow credentials (cookies, authorization headers)
   })
 );
 
@@ -55,6 +59,8 @@ app.use(
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 //css static
@@ -98,7 +104,7 @@ app.use("/products",productsRoutes)
 //   res.render("home", { AdminPage: "crm", products }); //do not add the .ejs extension
 // });
 
-app.get("/home", async (req, res) => {
+app.get("/home",isAuthenticated, async (req, res) => {
     try {
       const products = await prisma.product.findMany();
       res.render("home", { AdminPage: "crm", products });
@@ -111,7 +117,7 @@ app.get("/home", async (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login", { AdminPage: "Login page" }); 
 });
-app.get("/user", async(req, res) => {
+app.get("/user",isAuthenticated, async(req, res) => {
   try {
     const products = await prisma.product.findMany(); // Fetch from DB
     res.render("user", { AdminPage: "User Page", products });
