@@ -1,6 +1,7 @@
 import usersRoutes from "./routes/users.routes.js";
 import productsRoutes from "./routes/products.routes.js"
 import express from "express";
+// import methodOverride from "method-override";
 import ejs from "ejs";
 import path from "path";
 import cors from "cors";
@@ -26,6 +27,8 @@ app.use(
     methods: ["POST", "GET", "DELETE", "PATCH"],
   })
 );
+
+//  app.use(methodOverride("_method"));
 
 app.use(
     helmet({
@@ -108,11 +111,14 @@ app.get("/home", async (req, res) => {
   });
 
 app.get("/login", (req, res) => {
-  res.render("login", { AdminPage: "Login page" }); //do not add the .ejs extension
+  res.render("login", { AdminPage: "Login page" }); 
 });
+// app.get("/user", (req, res) => {
+//   res.render("user", { AdminPage: "UserPage" });
+// });
 
 app.get("/product", (req, res) => {
-    res.render("product", { AdminPage: "New Products" }); //do not add the .ejs extension
+    res.render("product", { AdminPage: "New Products" }); 
   })
 
 app.listen(3000, () => {

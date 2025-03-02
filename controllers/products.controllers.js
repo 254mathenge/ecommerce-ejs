@@ -2,6 +2,7 @@
 import { PrismaClient } from "@prisma/client";
 import upload from "../middlewares/multer.middlewares.js";
 import cloudinary from "../utils/cloudinary.js"
+
 const prisma = new PrismaClient();
 
 export const createProduct = async (req, res) => {
@@ -19,7 +20,7 @@ export const createProduct = async (req, res) => {
             const cloudinaryResult = await cloudinary.uploader.upload(req.file.path);
 
            
-            const product = await prisma.product.create({
+            const products = await prisma.product.create({
                 data: {
                     name: name,
                     category:category,
@@ -30,8 +31,8 @@ export const createProduct = async (req, res) => {
                 },
             });
 
-            console.log("Product created:", product);
-            res.redirect("/home");
+            console.log("Product created:", products);
+            res.render("home", { AdminPage: "crm", products });
         });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -41,25 +42,31 @@ export const getAllProducts =async(req, res) => {
 
     try {
         const products= await prisma.product.findMany();
-        res.render("products", { products });
-
-    } 
-    catch (error) {
+      
+        console.log(products);
+        // res.json(products)
+    
+    res.render("home", { AdminPage: "crm", products });
+    }catch (error) {
         res.status(500).json({success:false ,message:error.message})
   }
 }
+
 export const deleteProduct =async(req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
+    console.log("deleting");
     try {
         const productId = parseInt(req.params.id, 10);
         const products= await prisma.product.delete({
+            
             where:{
                 id:productId
             }
-
         });
-        res.redirect("/product"); 
-
+        console.log(products);
+        // res.json(products)
+        res.redirect("/home"); 
+        // res.render("home", { AdminPage: "crm", products });
     } 
     catch (error) {
         res.status(500).json({success:false ,message:error.message})
