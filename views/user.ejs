@@ -8,154 +8,131 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="breadcrumb">
-        <span>Main</span> / <span class="active">Catalog</span>
-      </div>
-      <div class="header-content">
-        <h1>Catalog <span class="info-badge">i</span></h1>
-        <div class="view-options">
-          <button class="view-btn active"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg></button>
-          <button class="view-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg></button>
-          <div class="sort-dropdown">
-            <span>Popular First</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-          </div>
+    <div class="app-container">
+      <div class="catalog-container">
+        <div class="breadcrumb">
+          <span>Main</span> / <span class="active">Catalog</span>
         </div>
-      </div>
-    </header>
-
-    <div class="content">
-      <aside class="filters">
-        <div class="filter-group">
-          <h3>Category</h3>
-          <div class="filter-options">
-            <% categories.forEach((category, index) => { %>
-              <div class="checkbox-item">
-                <input type="checkbox" id="category-<%= index %>" <%= category === 'All' ? 'checked' : '' %>>
-                <label for="category-<%= index %>"><%= category %></label>
-              </div>
-            <% }); %>
-          </div>
-        </div>
-
-        <div class="filter-group">
-          <h3>Price Range</h3>
-          <div class="price-range">
-            <div class="price-inputs">
-              <span>$0</span>
-              <span>$1,000</span>
+        <div class="header">
+          <h1>Catalog <span class="info-badge">i</span></h1>
+          <div class="view-options">
+            <div class="view-buttons">
+              <button class="view-btn active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+              </button>
+              <button class="view-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+              </button>
             </div>
-            <div class="range-slider">
-              <div class="range-track"></div>
-              <div class="range-progress"></div>
-              <input type="range" min="0" max="1000" value="0" class="range-min">
-              <input type="range" min="0" max="1000" value="1000" class="range-max">
+            <div class="sort-dropdown">
+              <span>Popular First</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
             </div>
           </div>
         </div>
-
-        <div class="filter-group">
-          <h3>Brand</h3>
-          <div class="filter-options">
-            <% brands.forEach((brand, index) => { %>
-              <div class="checkbox-item">
-                <input type="checkbox" id="brand-<%= index %>" <%= brand === 'All' ? 'checked' : '' %>>
-                <label for="brand-<%= index %>"><%= brand %></label>
+        <div class="content">
+          <div class="sidebar">
+            <div class="filter-section">
+              <div class="filter-header">
+                <h3>Category</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
               </div>
-            <% }); %>
-          </div>
-        </div>
-
-        <div class="filter-group">
-          <h3>Color</h3>
-          <div class="filter-options">
-            <% colors.forEach((color, index) => { %>
-              <div class="checkbox-item">
-                <input type="checkbox" id="color-<%= index %>" <%= (color === 'All' || color === 'Blue') ? 'checked' : '' %>>
-                <label for="color-<%= index %>"><%= color %></label>
-              </div>
-            <% }); %>
-          </div>
-        </div>
-
-        <div class="filter-group">
-          <div class="toggle-option">
-            <span>Only in Stock</span>
-            <label class="toggle">
-              <input type="checkbox">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-        </div>
-
-        <div class="filter-actions">
-          <button class="btn-primary">Add Filters</button>
-          <button class="btn-clear">Clear</button>
-        </div>
-      </aside>
-
-      <main class="products">
-        <div class="product-grid">
-          <% products.forEach(product => { %>
-            <div class="product-card">
-              <div class="product-image">
-                <img src="<%= product.image %>" alt="<%= product.name %>">
-                <button class="favorite-btn <%= product.favorite ? 'active' : '' %>">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="<%= product.favorite ? 'currentColor' : 'none' %>" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                </button>
-                <% if (product.sale) { %>
-                  <div class="sale-badge">SALE</div>
-                <% } %>
-                <% if (product.id === 3) { %>
-                  <div class="bestseller-badge">Bestseller</div>
-                <% } %>
-              </div>
-              <div class="product-info">
-                <h3><%= product.name %></h3>
-                <p class="product-category"><%= product.category %></p>
-                <div class="product-price">
-                  <span class="current-price">$<%= product.price.toFixed(2) %></span>
-                  <% if (product.originalPrice > product.price) { %>
-                    <span class="original-price">$<%= product.originalPrice.toFixed(2) %></span>
-                  <% } %>
+              <div class="filter-options">
+                <div class="checkbox-item">
+                  <input type="checkbox" id="category-all" checked>
+                  <label for="category-all">All</label>
                 </div>
-                <% if (product.id === 3) { %>
-                  <button class="btn-buy">Buy $74.99</button>
-                  <div class="product-actions">
-                    <button class="btn-cart">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-                    </button>
-                    <button class="btn-compare">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    </button>
-                  </div>
-                <% } %>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="category-gaming" checked>
+                  <label for="category-gaming">Women</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="category-electronics" checked>
+                  <label for="category-electronics">Men</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="category-traveling">
+                  <label for="category-traveling">Kids</label>
+                </div>
               </div>
             </div>
-          <% }); %>
-        </div>
-        <div class="pagination">
-          <button class="btn-show-more">Show 164 More</button>
-        </div>
-      </main>
-    </div>
-  </div>
+            
 
-  <script>
-    // Simple toggle for favorite buttons
-    document.querySelectorAll('.favorite-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        this.classList.toggle('active');
-        const svg = this.querySelector('svg');
-        if (this.classList.contains('active')) {
-          svg.setAttribute('fill', 'currentColor');
-        } else {
-          svg.setAttribute('fill', 'none');
-        }
-      });
-    });
-  </script>
+            
+            <div class="filter-section">
+              <div class="filter-header">
+                <h3>Price Range</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+              </div>
+              <div class="filter-options">
+                <div class="checkbox-item">
+                  <input type="checkbox" id="color-all" checked>
+                  <label for="color-all">All</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="color-white">
+                  <label for="color-white">$0 - $50</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="color-blue" checked>
+                  <label for="color-blue">$51 - $100</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="color-black">
+                  <label for="color-black">$101 - $150</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="color-silver">
+                  <label for="color-silver">$151 - $200</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="color-silver">
+                  <label for="color-silver">$201 </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="filter-section">
+              <div class="toggle-option">
+                <span>Only in Stock</span>
+                <label class="toggle">
+                  <input type="checkbox" checked>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="filter-actions">
+              <button class="btn-add-filters">Add Filters</button>
+              <button class="btn-clear">Clear</button>
+            </div>
+          </div>
+          <div class="products-grid">
+            <% products.forEach(product => { %>
+              <div class="product-card">
+                <div class="product-image">
+                  <img src="<%= product.image %>" alt="<%= product.name %>">
+                  <button class="favorite-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="product-info">
+                  <h3><%= product.name %></h3>
+                  <p class="product-category"><%= product.category %></p>
+                  <div class="product-price">
+                    <span class="current-price">$<%= product.price.toFixed(2) %></span>
+                    <% if (product.originalPrice) { %>
+                      <span class="original-price">$<%= product.originalPrice.toFixed(2) %></span>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+          
+        <!-- </div> -->
+      </div>
 </body>
 </html>

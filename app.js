@@ -1,7 +1,6 @@
 import usersRoutes from "./routes/users.routes.js";
 import productsRoutes from "./routes/products.routes.js"
 import express from "express";
-// import methodOverride from "method-override";
 import ejs from "ejs";
 import path from "path";
 import cors from "cors";
@@ -28,7 +27,6 @@ app.use(
   })
 );
 
-//  app.use(methodOverride("_method"));
 
 app.use(
     helmet({
@@ -40,12 +38,12 @@ app.use(
           styleSrc: [
             "'self'",
             "'unsafe-inline'",
-            "https://cdnjs.cloudflare.com" // Allow Font Awesome
+            "https://cdnjs.cloudflare.com" 
           ],
           imgSrc: [
             "'self'",
             "data:",
-            "https://res.cloudinary.com" // Allow Cloudinary images
+            "https://res.cloudinary.com" 
           ],
         },
       },
@@ -55,14 +53,14 @@ app.use(
 
 
 
-app.set("view engine", "ejs"); //access any ejs files in views folder
+app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 //css static
 app.use(express.static("public"));
 app.get("/", (req, res) => {
-  res.render("index", { AdminPage: "register page", error: null} ); //do not add the .ejs extension
+  res.render("index", { AdminPage: "register page", error: null} ); 
 });
 
 app.use("/users", usersRoutes);
@@ -102,7 +100,7 @@ app.use("/products",productsRoutes)
 
 app.get("/home", async (req, res) => {
     try {
-      const products = await prisma.product.findMany(); // Fetch from DB
+      const products = await prisma.product.findMany();
       res.render("home", { AdminPage: "crm", products });
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -113,9 +111,15 @@ app.get("/home", async (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login", { AdminPage: "Login page" }); 
 });
-// app.get("/user", (req, res) => {
-//   res.render("user", { AdminPage: "UserPage" });
-// });
+app.get("/user", async(req, res) => {
+  try {
+    const products = await prisma.product.findMany(); // Fetch from DB
+    res.render("user", { AdminPage: "User Page", products });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 app.get("/product", (req, res) => {
     res.render("product", { AdminPage: "New Products" }); 

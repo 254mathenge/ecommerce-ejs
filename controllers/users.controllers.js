@@ -70,7 +70,7 @@ export const loginUser = async (req, res) => {
         if (user.isAdmin) {
             res.redirect("/home");  
         } else {
-            res.redirect("/");  
+            res.redirect("/user");  
         }
     }
     catch (error) {
